@@ -73,27 +73,53 @@ Os dados de abas/sessões nas imagens 1–3 são fictícios (gerados para a capt
 
 `assets/icons/listing128.png` (128×128, já no formato exigido).
 
-## Justificativa de permissões (obrigatório na revisão)
+## Aba "Práticas de privacidade" (Privacy practices) — resolve a tela "Não foi possível publicar"
 
-A Google exige uma justificativa curta para cada permissão "poderosa" na aba **Privacy practices** do dashboard. Use estes textos:
+Essa tela lista tudo que falta preencher antes do envio. Vá em **Editar item → Práticas de privacidade** e preencha cada campo com o texto abaixo (copiar e colar direto).
 
-| Permissão | Justificativa (colar no formulário) |
+### Descrição do único propósito (Single purpose)
+
+```
+Eclipse de Abas suspende (descarrega da memória) as abas do navegador que o usuário deixou inativas por um tempo configurável, liberando RAM, e permite reativá-las a qualquer momento com um clique. Esse é o único propósito da extensão; os recursos de organização (grupos por domínio, sessões salvas) servem diretamente esse objetivo de gerenciar abas com mais eficiência.
+```
+
+### Justificativa de cada permissão
+
+| Campo no formulário | Texto (colar) |
 |---|---|
-| `tabs` | "Necessário para ler o título e a URL das abas abertas, exibi-las na lista do popup e trocar seu conteúdo pela tela de hibernação ao eclipsar/acordar uma aba." |
-| `storage` | "Usado para salvar localmente as preferências do usuário (tempo de suspensão, lista branca) e as sessões de abas salvas (\"constelações\"). Nenhum dado sai do dispositivo." |
-| `alarms` | "Aciona a verificação periódica (a cada 1 minuto) de quais abas estão inativas há tempo suficiente para serem suspensas automaticamente." |
-| `contextMenus` | "Adiciona itens no menu de clique direito para eclipsar a aba atual ou outras abas rapidamente." |
-| `tabGroups` | "Usado exclusivamente pela ação \"Agrupar\", que organiza abas do mesmo domínio em grupos nativos do Chrome." |
-| Acesso a todos os sites (`<all_urls>`) | "A extensão precisa poder suspender e restaurar qualquer aba, de qualquer site, já que essa é a função principal dela — não é possível saber de antemão quais sites o usuário vai querer eclipsar." |
+| **Justificativa para `alarms`** | Aciona a verificação periódica (a cada 1 minuto) de quais abas estão inativas há tempo suficiente para serem suspensas automaticamente. |
+| **Justificativa para `contextMenus`** | Adiciona itens no menu de clique direito da página para eclipsar a aba atual ou todas as outras rapidamente, sem precisar abrir o popup. |
+| **Justificativa para a permissão de host** (`<all_urls>`) | A extensão precisa poder suspender e restaurar qualquer aba, de qualquer site, já que essa é a função principal dela — não é possível saber de antemão quais sites o usuário vai querer eclipsar. |
+| **Justificativa para o uso de código remoto** | A extensão não carrega nem executa nenhum código remoto. Todo o HTML, CSS e JavaScript está empacotado localmente dentro da extensão. |
+| **Justificativa para `storage`** | Usado para salvar localmente as preferências do usuário (tempo de suspensão, lista branca) e as sessões de abas salvas ("constelações"). Nenhum dado sai do dispositivo. |
+| **Justificativa para `tabGroups`** | Usado exclusivamente pela ação "Agrupar", que organiza abas do mesmo domínio em grupos nativos e coloridos do Chrome. |
+| **Justificativa para `tabs`** | Necessário para ler o título e a URL das abas abertas, exibi-las na lista do popup e trocar seu conteúdo pela tela de hibernação ao eclipsar/acordar uma aba. |
 
-**Uso de dados remotos**: nenhum. Marque "Não" para coleta/venda/compartilhamento de dados do usuário — tudo é 100% local.
+> "Uso de código remoto" só aparece na lista porque as páginas antes carregavam a fonte Outfit do Google Fonts por um link remoto. Isso foi removido do código (as páginas agora usam a fonte padrão do sistema, que já era o fallback) — então a resposta correta agora é "Não" / justificativa acima confirmando que não há código remoto. **Reempacote o `.zip` depois dessa mudança antes de subir** (veja a seção Pacote).
 
-**Política de privacidade**: como não há coleta de dados, uma política formal não é estritamente obrigatória, mas a Chrome Web Store às vezes pede uma URL mesmo assim. Se pedir, publique o texto da seção "Privacidade" acima em uma página (por exemplo, como uma seção do `README.md` no GitHub) e cole a URL, ex:
+### Uso de dados (Data usage)
+
+Na seção de práticas de dados, marque **"Este item não coleta nem usa dados do usuário"** (ou desmarque todas as categorias de coleta, conforme a UI do momento). Tudo é salvo localmente via `chrome.storage.local`; nada é enviado para fora do dispositivo.
+
+Se o formulário pedir uma **URL de política de privacidade**, use:
 `https://github.com/annabruzaca/eclipse-de-abas#privacidade`
+(é a seção "Privacidade" do README, já publicada no GitHub.)
+
+### E-mail de contato do publisher
+
+Isso fica em **Configurações da conta** (não na página do item) — eu não tenho como preencher isso por você:
+
+1. No dashboard, abra **Configurações** (ícone de engrenagem / menu da conta).
+2. Em **E-mail de contato**, adicione um e-mail e clique em verificar.
+3. Confirme o link de verificação que chegar nesse e-mail.
+
+Sem isso, a Google bloqueia a publicação de qualquer item, independente do resto estar certo.
 
 ## Antes de enviar
 
+- [ ] Reempacotar o `.zip` (as páginas HTML mudaram ao remover a fonte remota) — veja o comando na seção Pacote.
+- [ ] Preencher os 8 campos da aba "Práticas de privacidade" acima.
+- [ ] Verificar o e-mail de contato do publisher nas Configurações da conta.
 - [ ] Rodar `git log -1` e conferir que o `manifest.json` do zip bate com a versão publicada no GitHub.
 - [ ] (Opcional) Trocar os 5 screenshots por capturas reais do seu uso, se quiser dados 100% autênticos em vez dos fictícios.
 - [ ] Revisar a descrição por erros de digitação.
-- [ ] Confirmar o e-mail de contato do desenvolvedor no dashboard.
