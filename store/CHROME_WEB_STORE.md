@@ -59,8 +59,15 @@ Português (Brasil) — principal. (Toda a interface está em pt-BR; se quiser a
 
 ## Screenshots
 
-- `store/screenshot-1-popup.png` (1280×800) — já gerado, mostra o popup principal.
-- A Chrome Web Store aceita até 5 imagens (1280×800 ou 640×400). Recomendo tirar mais 1–2 capturas reais do navegador em uso (com abas de verdade abertas, mostrando a lista de abas populada e a tela de aba eclipsada) para complementar — a gerada aqui usa um popup "vazio" porque foi renderizada fora do contexto de uma janela real do Chrome.
+Todas em 1280×800, prontas para upload (a Chrome Web Store aceita até 5, esse é o limite e já está no pacote):
+
+1. `store/screenshot-1-popup.png` — popup principal, lista de abas aberta, com o selo de abas duplicadas do mesmo domínio.
+2. `store/screenshot-2-icone-dinamico.png` — o mesmo popup com muitas abas abertas, mostrando o ícone/logo em fase avançada de eclipse (vermelho).
+3. `store/screenshot-3-constelacoes.png` — aba "Constelações Salvas", com sessões de abas salvas.
+4. `store/screenshot-4-aba-eclipsada.png` — tela de tela cheia mostrada quando uma aba é eclipsada.
+5. `store/screenshot-5-opcoes.png` — página de configurações.
+
+Os dados de abas/sessões nas imagens 1–3 são fictícios (gerados para a captura, não vêm de nenhum navegador real) — troque por capturas do seu próprio uso se preferir algo 100% autêntico, mas não é obrigatório.
 
 ## Ícone da loja
 
@@ -87,6 +94,6 @@ A Google exige uma justificativa curta para cada permissão "poderosa" na aba **
 ## Antes de enviar
 
 - [ ] Rodar `git log -1` e conferir que o `manifest.json` do zip bate com a versão publicada no GitHub.
-- [ ] Tirar 1–2 screenshots reais (não geradas) mostrando abas de verdade.
+- [ ] (Opcional) Trocar os 5 screenshots por capturas reais do seu uso, se quiser dados 100% autênticos em vez dos fictícios.
 - [ ] Revisar a descrição por erros de digitação.
 - [ ] Confirmar o e-mail de contato do desenvolvedor no dashboard.

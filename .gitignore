@@ -1,8 +1,15 @@
 .DS_Store
 *.zip
 
+# Pasta que aparece ao extrair/inspecionar o .zip empacotado (ex: Finder)
+/eclipse-de-abas-v*/
+
+# Metadados internos do Claude Code, não fazem parte do projeto
+.claude/
+
 # Fotos de referência coladas na conversa durante o design, não fazem parte da extensão
 Partial Lunar Eclipse.jpeg
 _ (*.jpeg
 _ (*.jpg
 _ (*.png
+image-*.png
