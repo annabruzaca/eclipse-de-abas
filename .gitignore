@@ -1,5 +1,8 @@
 .DS_Store
 *.zip
 
-# Fotos de referência usadas só durante o design, não fazem parte da extensão
+# Fotos de referência coladas na conversa durante o design, não fazem parte da extensão
 Partial Lunar Eclipse.jpeg
+_ (*.jpeg
+_ (*.jpg
+_ (*.png

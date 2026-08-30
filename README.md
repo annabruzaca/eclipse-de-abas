@@ -33,6 +33,14 @@ Enquanto a extensão não está publicada na Chrome Web Store, é possível inst
 
 Nenhum dado é enviado para servidores externos — tudo fica salvo localmente via `chrome.storage.local`.
 
+## Privacidade
+
+Eclipse de Abas não coleta, não envia e não vende nenhum dado do usuário. Preferências, lista branca e sessões salvas ("constelações") ficam guardadas apenas localmente no seu navegador, via `chrome.storage.local`. A extensão não tem servidores próprios, não usa analytics e não faz rastreamento de nenhum tipo.
+
+## Publicando na Chrome Web Store
+
+Veja [`store/CHROME_WEB_STORE.md`](store/CHROME_WEB_STORE.md) para o pacote pronto para envio (descrição, screenshots e justificativa de permissões).
+
 ## Estrutura do projeto
 
 ```
