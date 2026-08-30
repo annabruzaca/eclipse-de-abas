@@ -29,7 +29,6 @@ Enquanto a extensão não está publicada na Chrome Web Store, é possível inst
 | `alarms` | Verificar periodicamente quais abas estão inativas |
 | `contextMenus` | Itens de menu de clique direito para eclipsar abas |
 | `tabGroups` | Agrupar abas por domínio |
-| `host_permissions: <all_urls>` | Necessário para suspender/restaurar abas de qualquer site |
 
 Nenhum dado é enviado para servidores externos — tudo fica salvo localmente via `chrome.storage.local`.
 

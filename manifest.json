@@ -17,9 +17,6 @@
     "contextMenus",
     "tabGroups"
   ],
-  "host_permissions": [
-    "<all_urls>"
-  ],
   "background": {
     "service_worker": "background/service-worker.js"
   },

@@ -89,13 +89,14 @@ Eclipse de Abas suspende (descarrega da memória) as abas do navegador que o usu
 |---|---|
 | **Justificativa para `alarms`** | Aciona a verificação periódica (a cada 1 minuto) de quais abas estão inativas há tempo suficiente para serem suspensas automaticamente. |
 | **Justificativa para `contextMenus`** | Adiciona itens no menu de clique direito da página para eclipsar a aba atual ou todas as outras rapidamente, sem precisar abrir o popup. |
-| **Justificativa para a permissão de host** (`<all_urls>`) | A extensão precisa poder suspender e restaurar qualquer aba, de qualquer site, já que essa é a função principal dela — não é possível saber de antemão quais sites o usuário vai querer eclipsar. |
 | **Justificativa para o uso de código remoto** | A extensão não carrega nem executa nenhum código remoto. Todo o HTML, CSS e JavaScript está empacotado localmente dentro da extensão. |
 | **Justificativa para `storage`** | Usado para salvar localmente as preferências do usuário (tempo de suspensão, lista branca) e as sessões de abas salvas ("constelações"). Nenhum dado sai do dispositivo. |
 | **Justificativa para `tabGroups`** | Usado exclusivamente pela ação "Agrupar", que organiza abas do mesmo domínio em grupos nativos e coloridos do Chrome. |
 | **Justificativa para `tabs`** | Necessário para ler o título e a URL das abas abertas, exibi-las na lista do popup e trocar seu conteúdo pela tela de hibernação ao eclipsar/acordar uma aba. |
 
 > "Uso de código remoto" só aparece na lista porque as páginas antes carregavam a fonte Outfit do Google Fonts por um link remoto. Isso foi removido do código (as páginas agora usam a fonte padrão do sistema, que já era o fallback) — então a resposta correta agora é "Não" / justificativa acima confirmando que não há código remoto. **Reempacote o `.zip` depois dessa mudança antes de subir** (veja a seção Pacote).
+
+> **Permissão de host removida** (não precisa mais justificar `<all_urls>`): o `manifest.json` pedia `host_permissions: ["<all_urls>"]`, o que a Google sinaliza como "permissões amplas do host" e atrasa a revisão. Na prática a extensão nunca precisou disso — a permissão `tabs` (já declarada) já dá acesso a título/URL/favicon de todas as abas, e trocar a URL de uma aba para suspender/acordar não exige permissão de host nenhuma. Removida do manifest; reempacote o `.zip` antes de reenviar.
 
 ### Uso de dados (Data usage)
 
