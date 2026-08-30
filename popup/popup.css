@@ -1,0 +1,697 @@
+/* Eclipse de Abas - Popup Styles (Design System: Eclipse Lunar) */
+
+:root {
+  --bg-main: #070a18;
+  --bg-card: rgba(14, 18, 38, 0.82);
+  --bg-item: rgba(18, 23, 46, 0.62);
+  --bg-item-hover: rgba(27, 33, 62, 0.85);
+  --border-light: rgba(216, 224, 255, 0.08);
+  --border-glow: rgba(169, 184, 232, 0.3);
+  --border-radius: 16px
+    /* Frio: luar, foco, seleção, links */
+    --moon-glow: #a9b8e8;
+  /* Quente: ação principal ("eclipsar"), do cobre ao vermelho-sangue */
+  --eclipse-copper: #c1642f;
+  --eclipse-blood: #8a2f1f;
+  /* Acento suave para marcações (aba ativa) */
+  --starlight-gold: #e7c17a;
+
+  --text-main: #f2f4fb;
+  --text-muted: #8992b3;
+  --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Visível apenas para leitores de tela (rótulos de campos sem texto na tela) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Indicador de foco visível para navegação por teclado (não interfere no clique do mouse) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--moon-glow);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+html {
+  background-color: var(--bg-main);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+body {
+  width: 380px;
+  height: 560px;
+  background-color: var(--bg-main);
+  /* Céu estrelado: pontos fixos, sem imagem externa nem animação (evita
+     distrair da lista de abas, que é o conteúdo funcional principal). */
+  background-image:
+    radial-gradient(1.2px 1.2px at 24px 36px, rgba(242, 244, 251, 0.55), transparent),
+    radial-gradient(1px 1px at 78px 16px, rgba(242, 244, 251, 0.35), transparent),
+    radial-gradient(1.4px 1.4px at 132px 58px, rgba(242, 244, 251, 0.45), transparent),
+    radial-gradient(1px 1px at 196px 22px, rgba(242, 244, 251, 0.3), transparent),
+    radial-gradient(1.2px 1.2px at 248px 72px, rgba(242, 244, 251, 0.5), transparent),
+    radial-gradient(1px 1px at 300px 14px, rgba(242, 244, 251, 0.3), transparent),
+    radial-gradient(1.4px 1.4px at 350px 48px, rgba(242, 244, 251, 0.4), transparent),
+    radial-gradient(1px 1px at 50px 110px, rgba(242, 244, 251, 0.25), transparent),
+    radial-gradient(1px 1px at 320px 130px, rgba(242, 244, 251, 0.3), transparent),
+    radial-gradient(1.3px 1.3px at 170px 98px, rgba(242, 244, 251, 0.35), transparent);
+  background-repeat: no-repeat;
+  color: var(--text-main);
+  font-family: var(--font-main);
+  overflow: hidden;
+  border-radius: 16px;
+  user-select: none;
+}
+
+.popup-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px;
+  gap: 12px;
+}
+
+/* Header */
+.app-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1;
+}
+
+/* Constelação decorativa atrás do cabeçalho, ecoando a ilustração de
+   referência. Puramente decorativa (aria-hidden no HTML). */
+.header-constellation {
+  position: absolute;
+  top: -8px;
+  right: 30px;
+  width: 100px;
+  height: 34px;
+  color: var(--moon-glow);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/*
+ * Logo "lua em eclipse" — a cor e o deslocamento da sombra são contínuos
+ * (sem saltos entre fases), definidos por JS via variáveis CSS
+ * (--moon-lit/--moon-shadow/--moon-offset/--moon-size, ver popup.js +
+ * shared/moon-phase.js) conforme a quantidade de abas abertas na janela.
+ * Poucas abas = lua quase toda visível e branca/prateada (calmo); muitas
+ * abas = lua tomada pela sombra vermelho-cobre (alerta), como num eclipse
+ * lunar real. Isso é independente de quantas abas estão eclipsadas.
+ *
+ * A sombra sempre desliza da esquerda para o centro (nunca o contrário) —
+ * a mesma direção usada no ícone da barra de ferramentas e no logo estático
+ * da página de opções, para os três eclipsarem sempre para o mesmo lado.
+ */
+.logo-icon {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--moon-lit, #eef1fa);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px color-mix(in srgb, var(--moon-shadow, #1c2140) 55%, transparent);
+  transition: background 0.6s ease, box-shadow 0.6s ease;
+}
+
+/* Anel orbital tracejado, ecoando o visual da tela de aba eclipsada */
+.logo-icon::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px dashed rgba(169, 184, 232, 0.4);
+  pointer-events: none;
+}
+
+.logo-corona {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--moon-shadow, #1c2140) 75%, transparent) 0%, transparent 70%);
+  animation: pulse-logo 3s ease-in-out infinite alternate;
+  transition: background 0.6s ease;
+}
+
+.logo-moon {
+  position: absolute;
+  width: var(--moon-size, 22px);
+  height: var(--moon-size, 22px);
+  border-radius: 50%;
+  background-color: var(--moon-shadow, #1c2140);
+  transform: translate(calc(-1 * var(--moon-offset, 9px)), -2px);
+  transition: transform 0.6s ease, background-color 0.6s ease, width 0.6s ease, height 0.6s ease;
+}
+
+@keyframes pulse-logo {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+.brand-text h1 {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  background: linear-gradient(135deg, #ffffff, var(--moon-glow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.version {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.icon-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-light);
+  color: var(--text-muted);
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+.icon-btn:hover {
+  background: rgba(169, 184, 232, 0.18);
+  color: #ffffff;
+  border-color: var(--border-glow);
+}
+
+/* Card de Métricas */
+.metrics-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-light);
+  border-radius: 14px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.metric-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--moon-glow);
+}
+
+.metric-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.3px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.metric-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border-light);
+}
+
+/* Quick Actions */
+.quick-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.action-btn {
+  border: none;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.action-btn.primary {
+  background: linear-gradient(135deg, var(--eclipse-copper), var(--eclipse-blood));
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(193, 100, 47, 0.35);
+}
+
+.action-btn.primary:hover {
+  box-shadow: 0 6px 16px rgba(193, 100, 47, 0.55);
+  transform: translateY(-1px);
+}
+
+.action-btn.secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-light);
+  color: var(--text-main);
+}
+
+.action-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Navegação por Abas Internas */
+.tab-nav {
+  display: flex;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 3px;
+  border-radius: 10px;
+  border: 1px solid var(--border-light);
+}
+
+.tab-nav-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: inherit;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-nav-btn.active {
+  background: rgba(169, 184, 232, 0.2);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Painéis de Conteúdo */
+.tab-panel {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.tab-panel.active {
+  display: flex;
+}
+
+/* Campo de Busca */
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  color: var(--text-muted);
+}
+
+.search-box input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 7px 10px 7px 32px;
+  color: var(--text-main);
+  font-size: 0.75rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.search-box input:focus {
+  border-color: var(--moon-glow);
+}
+
+/* Lista Scrollável de Abas */
+.tabs-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-right: 2px;
+}
+
+.tabs-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.tabs-list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.tabs-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+.tab-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-item);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  padding: 8px 10px;
+  gap: 8px;
+  transition: all 0.15s ease;
+}
+
+.tab-item:hover {
+  background: var(--bg-item-hover);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.tab-item.suspended {
+  opacity: 0.65;
+  border-left: 3px solid var(--eclipse-copper);
+}
+
+.tab-item.active-tab {
+  border-left: 3px solid var(--starlight-gold);
+}
+
+.tab-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.tab-fav {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.tab-details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.tab-name {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tab-url-text {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Linha com o domínio + selo de quantas abas dele estão abertas */
+.tab-domain-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+}
+
+.tab-domain-row .tab-url-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.tab-domain-badge {
+  flex-shrink: 0;
+  font-family: inherit;
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--moon-glow);
+  background: rgba(169, 184, 232, 0.15);
+  border: 1px solid rgba(169, 184, 232, 0.3);
+  border-radius: 6px;
+  padding: 0px 5px;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.tab-domain-badge:hover {
+  background: rgba(169, 184, 232, 0.3);
+}
+
+.tab-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-tab-action {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-tab-action:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.btn-tab-action.danger:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+/* Estado "armado" de confirmação: 1º clique pede confirmação, 2º clique executa */
+.confirm-armed {
+  background: rgba(239, 68, 68, 0.9) !important;
+  color: #ffffff !important;
+  animation: confirm-pulse 1s ease-in-out infinite;
+}
+
+@keyframes confirm-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Texto explicativo curto acima de seções que usam termos temáticos */
+.section-hint {
+  font-size: 0.68rem;
+  line-height: 1.4;
+  color: var(--text-muted);
+  margin: -2px 0 2px;
+}
+
+/* Constelações */
+.save-constellation-box {
+  display: flex;
+  gap: 6px;
+}
+
+.save-constellation-box input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 6px 10px;
+  color: var(--text-main);
+  font-size: 0.75rem;
+  outline: none;
+}
+
+.primary-sm-btn {
+  background: linear-gradient(135deg, var(--eclipse-copper), var(--eclipse-blood));
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.constellations-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.constellation-card {
+  background: var(--bg-item);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.constellation-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.constellation-count {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  padding: 24px 10px;
+}
+
+/* Footer, com uma faixa de horizonte decorativa acima da borda */
+.popup-footer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 6px;
+  border-top: 1px solid var(--border-light);
+}
+
+.popup-footer::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  right: -16px;
+  top: -13px;
+  height: 13px;
+  background-image:
+    linear-gradient(to bottom, rgba(169, 184, 232, 0.3), rgba(169, 184, 232, 0) 4px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 40' preserveAspectRatio='none'%3E%3Cpath d='M0 40 L0 20 Q50 8 100 16 T200 12 Q250 4 300 14 T400 18 L400 40 Z' fill='%2304060d'/%3E%3Cpolygon points='90,16 96,2 102,16' fill='%2304060d'/%3E%3Cpolygon points='330,14 336,0 342,14' fill='%2304060d'/%3E%3C/svg%3E");
+  background-repeat: no-repeat, no-repeat;
+  background-size: 100% 100%, 100% 100%;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.dot-online {
+  width: 6px;
+  height: 6px;
+  background-color: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #10b981;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--eclipse-copper);
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Notificação de Feedback (resultado das ações rápidas) */
+.toast {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  background: linear-gradient(135deg, var(--eclipse-copper), var(--eclipse-blood));
+  color: white;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  transform: translateY(12px);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s ease;
+  z-index: 10;
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}

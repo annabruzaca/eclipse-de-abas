@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configurações - Eclipse de Abas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="options-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="logo-icon">
+          <div class="logo-corona"></div>
+          <div class="logo-moon"></div>
+        </div>
+        <div>
+          <h1>Eclipse de Abas</h1>
+          <p class="subtitle">Painel de Controle e Preferências Celestiais</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+      <!-- Seção 1: Suspensão Automática -->
+      <section class="card">
+        <h2>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Tempo para Eclipsar (Suspensão Automática)
+        </h2>
+        <p class="card-desc">Escolha quanto tempo uma aba pode permanecer inativa até ser colocada em modo Eclipse para liberar memória RAM.</p>
+
+        <div class="form-group">
+          <label for="suspend-timeout">Inatividade necessária:</label>
+          <select id="suspend-timeout" class="select-input">
+            <option value="5">5 Minutos</option>
+            <option value="15">15 Minutos</option>
+            <option value="30" selected>30 Minutos (Recomendado)</option>
+            <option value="60">1 Hora</option>
+            <option value="120">2 Horas</option>
+            <option value="0">Desativar Suspensão Automática</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Seção 2: Regras de Proteção de Abas -->
+      <section class="card">
+        <h2>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Exceções e Proteções
+        </h2>
+        <p class="card-desc">Abas que correspondam a estas regras nunca serão eclipsadas automaticamente.</p>
+
+        <div class="checkbox-list">
+          <label class="checkbox-item">
+            <input type="checkbox" id="never-audio" checked>
+            <span class="checkmark"></span>
+            <div>
+              <strong>Nunca eclipsar abas reproduzindo áudio/vídeo</strong>
+              <p>Evita interromper músicas no Spotify, vídeos no YouTube ou chamadas no Meet/Zoom.</p>
+            </div>
+          </label>
+
+          <label class="checkbox-item">
+            <input type="checkbox" id="never-pinned" checked>
+            <span class="checkmark"></span>
+            <div>
+              <strong>Nunca eclipsar abas fixadas (Pinned Tabs)</strong>
+              <p>Mantém suas abas essenciais fixadas sempre ativas no navegador.</p>
+            </div>
+          </label>
+        </div>
+      </section>
+
+      <!-- Seção 3: Sóis Protegidos (Lista Branca de Domínios) -->
+      <section class="card">
+        <h2>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          Sóis Protegidos (Lista Branca de Sites)
+        </h2>
+        <p class="card-desc">Adicione palavras-chave ou domínios (ex: <code>gmail.com</code>, <code>github.com</code>) que você deseja proteger permanentemente.</p>
+
+        <div class="add-whitelist-box">
+          <label for="whitelist-input" class="sr-only">Domínio a proteger</label>
+          <input type="text" id="whitelist-input" placeholder="Digite um domínio (ex: youtube.com) e pressione Enter...">
+          <button class="primary-btn" id="btn-add-whitelist">Adicionar</button>
+        </div>
+
+        <div class="tags-container" id="whitelist-tags" aria-live="polite" aria-label="Domínios protegidos">
+          <!-- Tags carregadas dinamicamente -->
+        </div>
+      </section>
+
+      <!-- Seção 4: Atalhos do Teclado -->
+      <section class="card">
+        <h2>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="8" x2="6" y2="8"/><line x1="10" y1="8" x2="10" y2="8"/><line x1="14" y1="8" x2="14" y2="8"/><line x1="18" y1="8" x2="18" y2="8"/><line x1="6" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="18" y2="12"/><line x1="8" y1="16" x2="16" y2="16"/></svg>
+          Atalhos de Teclado
+        </h2>
+        <p class="card-desc">Controle a extensão rapidamente com as seguintes combinações de teclas:</p>
+
+        <div class="shortcut-list">
+          <div class="shortcut-row">
+            <span>Eclipsar a aba atual</span>
+            <kbd>Alt + Shift + E</kbd>
+          </div>
+          <div class="shortcut-row">
+            <span>Eclipsar todas as outras abas</span>
+            <kbd>Alt + Shift + O</kbd>
+          </div>
+        </div>
+        <p class="hint-small">Você pode alterar estes atalhos acessando <code>chrome://extensions/shortcuts</code> no Chrome.</p>
+      </section>
+    </main>
+
+    <!-- Feedback Toast Notification -->
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

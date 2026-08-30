@@ -1,0 +1,64 @@
+{
+  "manifest_version": 3,
+  "name": "Eclipse de Abas - Economia de RAM e Gerenciador",
+  "short_name": "Eclipse de Abas",
+  "version": "1.0.0",
+  "description": "Hiberne abas inativas, economize memória RAM e organize seu navegador com uma experiência celestial surpreendente.",
+  "icons": {
+    "16": "assets/icons/listing16.png",
+    "32": "assets/icons/listing32.png",
+    "48": "assets/icons/listing48.png",
+    "128": "assets/icons/listing128.png"
+  },
+  "permissions": [
+    "tabs",
+    "storage",
+    "alarms",
+    "contextMenus",
+    "tabGroups"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Eclipse de Abas",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "32": "assets/icons/icon32.png",
+      "48": "assets/icons/icon48.png",
+      "128": "assets/icons/icon128.png"
+    }
+  },
+  "options_page": "options/options.html",
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "suspended/suspended.html",
+        "assets/icons/*"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "commands": {
+    "eclipse-current-tab": {
+      "suggested_key": {
+        "default": "Alt+Shift+E",
+        "mac": "Alt+Shift+E"
+      },
+      "description": "Eclipsar (suspender) a aba atual"
+    },
+    "eclipse-other-tabs": {
+      "suggested_key": {
+        "default": "Alt+Shift+O",
+        "mac": "Alt+Shift+O"
+      },
+      "description": "Eclipsar todas as outras abas"
+    }
+  }
+}

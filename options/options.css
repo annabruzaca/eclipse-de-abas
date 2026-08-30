@@ -1,0 +1,376 @@
+/* Eclipse de Abas - Estilo da Página de Opções (Design System: Eclipse Lunar) */
+
+:root {
+  --bg-space: #060811;
+  --bg-card: rgba(14, 18, 38, 0.75);
+  --border-card: rgba(216, 224, 255, 0.08);
+  --moon-glow: #a9b8e8;
+  --eclipse-copper: #c1642f;
+  --eclipse-blood: #8a2f1f;
+  --starlight-gold: #e7c17a;
+  --text-main: #f2f4fb;
+  --text-muted: #8992b3;
+  --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Visível apenas para leitores de tela (rótulos de campos sem texto na tela) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Indicador de foco visível para navegação por teclado */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--moon-glow);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+body {
+  background-color: var(--bg-space);
+  background-image:
+    radial-gradient(1.4px 1.4px at 8% 12%, rgba(242, 244, 251, 0.4), transparent),
+    radial-gradient(1px 1px at 22% 6%, rgba(242, 244, 251, 0.3), transparent),
+    radial-gradient(1.6px 1.6px at 40% 18%, rgba(242, 244, 251, 0.35), transparent),
+    radial-gradient(1px 1px at 63% 8%, rgba(242, 244, 251, 0.28), transparent),
+    radial-gradient(1.4px 1.4px at 82% 14%, rgba(242, 244, 251, 0.4), transparent),
+    radial-gradient(1px 1px at 95% 22%, rgba(242, 244, 251, 0.25), transparent),
+    radial-gradient(1.2px 1.2px at 12% 85%, rgba(242, 244, 251, 0.22), transparent),
+    radial-gradient(1px 1px at 70% 92%, rgba(242, 244, 251, 0.2), transparent);
+  background-repeat: no-repeat;
+  color: var(--text-main);
+  font-family: var(--font-main);
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.options-container {
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Header */
+.header {
+  border-bottom: 1px solid var(--border-card);
+  padding-bottom: 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Logo "lua em eclipse" — versão estática (a página de opções não
+   acompanha a contagem de abas, isso fica no popup) numa fase intermediária,
+   só como identidade visual. A sombra entra pela esquerda, a mesma direção
+   usada no ícone da barra de ferramentas e no logo do popup, para as três
+   telas eclipsarem sempre para o mesmo lado. */
+.logo-icon {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #dbdbe6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 22px rgba(92, 42, 40, 0.45);
+}
+
+/* Anel orbital tracejado, ecoando o visual da tela de aba eclipsada */
+.logo-icon::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px dashed rgba(169, 184, 232, 0.4);
+  pointer-events: none;
+}
+
+.logo-corona {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(92, 42, 40, 0.75) 0%, rgba(92, 42, 40, 0) 70%);
+}
+
+.logo-moon {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #5c2a28;
+  transform: translate(-4px, -3px);
+}
+
+.brand h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff, var(--moon-glow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Cards */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-card);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.card h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card h2 svg {
+  color: var(--moon-glow);
+}
+
+.card-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border-card);
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.select-input {
+  background: rgba(18, 22, 41, 0.9);
+  border: 1px solid var(--moon-glow);
+  color: #ffffff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Checkboxes */
+.checkbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-card);
+  padding: 12px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.checkbox-item:hover {
+  border-color: rgba(169, 184, 232, 0.35);
+}
+
+.checkbox-item input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--eclipse-copper);
+  margin-top: 2px;
+  cursor: pointer;
+}
+
+.checkbox-item strong {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+.checkbox-item p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Whitelist Box */
+.add-whitelist-box {
+  display: flex;
+  gap: 10px;
+}
+
+.add-whitelist-box input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-card);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-family: inherit;
+  outline: none;
+}
+
+.add-whitelist-box input:focus {
+  border-color: var(--moon-glow);
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, var(--eclipse-copper), var(--eclipse-blood));
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(169, 184, 232, 0.15);
+  border: 1px solid rgba(169, 184, 232, 0.3);
+  color: var(--moon-glow);
+  font-size: 0.8rem;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+.tag-item .remove-tag {
+  background: none;
+  border: none;
+  color: var(--moon-glow);
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tag-item .remove-tag:hover {
+  color: #ffffff;
+}
+
+/* Shortcuts */
+.shortcut-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.shortcut-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+kbd {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: var(--starlight-gold);
+}
+
+.hint-small {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+code {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: linear-gradient(135deg, var(--eclipse-copper), var(--eclipse-blood));
+  color: white;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}

@@ -1,0 +1,310 @@
+/* Eclipse de Abas - Estilo Visual da Tela de Suspensão (Design System: Eclipse Lunar) */
+
+:root {
+  --bg-space: #060811;
+  --bg-card: rgba(16, 20, 40, 0.7);
+  --border-card: rgba(216, 224, 255, 0.1);
+  --moon-glow: #a9b8e8;
+  --eclipse-copper: #c1642f;
+  --eclipse-blood: #8a2f1f;
+  --starlight-gold: #e7c17a;
+  --text-main: #f2f4fb;
+  --text-muted: #8992b3;
+  --font-main: 'Outfit', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Indicador de foco visível para navegação por teclado */
+button:focus-visible {
+  outline: 2px solid var(--moon-glow);
+  outline-offset: 3px;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-space);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  overflow: hidden;
+  user-select: none;
+  cursor: pointer;
+}
+
+/* Fundo com estrelas cintilantes */
+.stars-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at bottom, #141b3a 0%, #05060d 100%);
+  z-index: 1;
+}
+
+.twinkling {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><circle cx="20" cy="50" r="1" fill="%23fff" opacity="0.6"/><circle cx="150" cy="120" r="1.5" fill="%23a9b8e8" opacity="0.8"/><circle cx="280" cy="90" r="1" fill="%23fff" opacity="0.4"/><circle cx="340" cy="240" r="2" fill="%23e7c17a" opacity="0.7"/><circle cx="80" cy="300" r="1" fill="%23fff" opacity="0.5"/><circle cx="220" cy="350" r="1.2" fill="%23a9b8e8" opacity="0.9"/></svg>') repeat;
+  animation: move-twink-back 100s linear infinite;
+  z-index: 2;
+  opacity: 0.8;
+}
+
+@keyframes move-twink-back {
+  from { background-position: 0 0; }
+  to { background-position: 1000px 500px; }
+}
+
+/* Horizonte decorativo (silhueta de colinas) na base da tela, ecoando a
+   ilustração de referência do eclipse lunar. */
+.horizon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 60px;
+  z-index: 3;
+  background-image:
+    linear-gradient(to bottom, rgba(169, 184, 232, 0.22), rgba(169, 184, 232, 0) 10px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 60' preserveAspectRatio='none'%3E%3Cpath d='M0 60 L0 34 Q100 14 200 26 T400 18 Q500 6 600 22 T800 28 L800 60 Z' fill='%2303040a'/%3E%3Cpolygon points='170,26 178,4 186,26' fill='%2303040a'/%3E%3Cpolygon points='620,20 628,-2 636,20' fill='%2303040a'/%3E%3Cpolygon points='660,24 666,8 672,24' fill='%2303040a'/%3E%3C/svg%3E");
+  background-repeat: no-repeat, no-repeat;
+  background-size: 100% 100%, 100% 100%;
+  pointer-events: none;
+}
+
+/* Container Principal */
+.eclipse-container {
+  position: relative;
+  z-index: 10;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Lua em eclipse — estático em "totalidade": a aba está eclipsada, então a
+   lua aparece quase totalmente coberta pela sombra vermelho-cobre, como no
+   auge de um eclipse lunar real. */
+.eclipse-sphere-wrapper {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.corona-glow {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124, 36, 22, 0.85) 0%, rgba(169, 184, 232, 0.25) 55%, rgba(0, 0, 0, 0) 75%);
+  filter: blur(15px);
+  animation: pulse-corona 4s ease-in-out infinite alternate;
+}
+
+.sun-body {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #f0c9a0;
+  box-shadow: 0 0 40px rgba(124, 36, 22, 0.5);
+}
+
+.moon-shadow {
+  position: absolute;
+  width: 98px;
+  height: 98px;
+  border-radius: 50%;
+  background: #7c2416;
+  box-shadow: inset -4px -4px 10px rgba(255, 255, 255, 0.08);
+  animation: eclipse-align 6s ease-in-out infinite alternate;
+}
+
+.orbital-ring {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border: 1px dashed rgba(169, 184, 232, 0.3);
+  border-radius: 50%;
+  animation: spin-ring 25s linear infinite;
+}
+
+@keyframes pulse-corona {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(1.15); opacity: 1; }
+}
+
+@keyframes eclipse-align {
+  0% { transform: translate(-6px, -3px); }
+  100% { transform: translate(2px, 0px); }
+}
+
+@keyframes spin-ring {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Card da Aba Eclipsada com Glassmorphism */
+.tab-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-card);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 32px 40px;
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tab-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 25px 60px rgba(124, 36, 22, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.favicon-badge {
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.favicon-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(193, 100, 47, 0.15);
+  border: 1px solid rgba(193, 100, 47, 0.35);
+  color: var(--starlight-gold);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--starlight-gold);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--starlight-gold);
+  animation: pulse-dot 1.5s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+.tab-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 6px;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.tab-domain {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+.stats-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(169, 184, 232, 0.1);
+  border: 1px solid rgba(169, 184, 232, 0.25);
+  color: var(--moon-glow);
+  font-size: 0.85rem;
+  padding: 8px 16px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.wake-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--eclipse-copper), var(--eclipse-blood));
+  color: #ffffff;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 10px 25px rgba(193, 100, 47, 0.4);
+  transition: all 0.2s ease;
+}
+
+.wake-btn:hover {
+  background: linear-gradient(135deg, #d97a45, var(--eclipse-copper));
+  box-shadow: 0 14px 30px rgba(193, 100, 47, 0.6);
+  transform: scale(1.02);
+}
+
+.wake-btn:active {
+  transform: scale(0.98);
+}
+
+.hint-text {
+  margin-top: 14px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.space-footer {
+  position: relative;
+  z-index: 10;
+  margin-top: 32px;
+  max-width: 440px;
+  text-align: center;
+}
+
+.quote-text {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.45);
+}
