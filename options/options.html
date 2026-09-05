@@ -39,8 +39,27 @@
             <option value="30" selected>30 Minutos (Recomendado)</option>
             <option value="60">1 Hora</option>
             <option value="120">2 Horas</option>
+            <option value="240">4 Horas</option>
+            <option value="480">8 Horas</option>
+            <option value="720">12 Horas</option>
+            <option value="1440">1 Dia</option>
+            <option value="2880">2 Dias</option>
+            <option value="4320">3 Dias</option>
+            <option value="custom">Personalizado&hellip;</option>
             <option value="0">Desativar Suspensão Automática</option>
           </select>
+        </div>
+
+        <div class="custom-timeout-group" id="custom-timeout-group" hidden>
+          <label for="custom-timeout-value" class="sr-only">Quantidade de tempo personalizada</label>
+          <input type="number" id="custom-timeout-value" class="custom-timeout-input" min="1" step="1" placeholder="Ex: 45">
+          <label for="custom-timeout-unit" class="sr-only">Unidade de tempo</label>
+          <select id="custom-timeout-unit" class="select-input">
+            <option value="1">Minutos</option>
+            <option value="60">Horas</option>
+            <option value="1440">Dias</option>
+          </select>
+          <p class="hint-small">Mínimo de 1 minuto. Sem limite máximo.</p>
         </div>
       </section>
 

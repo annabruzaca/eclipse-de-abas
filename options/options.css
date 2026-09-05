@@ -205,6 +205,42 @@ body {
   cursor: pointer;
 }
 
+.custom-timeout-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-card);
+  border-radius: 10px;
+}
+
+/* Sem isso, o atributo hidden é ignorado: uma regra display normal do
+   autor tem prioridade sobre o display:none padrão do navegador para
+   [hidden], então o grupo ficaria sempre visível mesmo com hidden ativo. */
+.custom-timeout-group[hidden] {
+  display: none;
+}
+
+.custom-timeout-input {
+  width: 90px;
+  background: rgba(18, 22, 41, 0.9);
+  border: 1px solid var(--moon-glow);
+  color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  outline: none;
+}
+
+.custom-timeout-group .hint-small {
+  flex-basis: 100%;
+  margin-top: 2px;
+}
+
 /* Checkboxes */
 .checkbox-list {
   display: flex;
