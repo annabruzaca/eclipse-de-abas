@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const quoteEl = document.getElementById('quote-text');
 
   // Atualizar Título do Documento
-  document.title = `🌑 [Eclipse] ${originalTitle}`;
+  document.title = `🌑 ${originalTitle}`;
 
   // Preencher dados na interface
   tabTitleEl.textContent = originalTitle;
