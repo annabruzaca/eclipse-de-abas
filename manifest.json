@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Eclipse de Abas - Economia de RAM e Gerenciador",
   "short_name": "Eclipse de Abas",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Hiberne abas inativas, economize memória RAM e organize seu navegador com uma experiência celestial surpreendente.",
   "icons": {
     "16": "assets/icons/listing16.png",
